@@ -1,9 +1,9 @@
 <?php
 
-    $bdServidor = '127.0.0.1';
-    $bdUsuario = 'agenciabancaria';
-    $bdSenha = 'bancopsgd';
-    $bdBanco = 'agenciabancaria';
+    $bdServidor = 'db';
+    $bdUsuario = 'agencia_user';
+    $bdSenha = 'secret';
+    $bdBanco = 'agencia';
 
     $conexao = mysqli_connect($bdServidor, $bdUsuario, $bdSenha, $bdBanco);
 

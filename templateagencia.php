@@ -11,6 +11,8 @@
                 <th>Endereço da Agência: Av. Alameda dos Anjos, 656, Centro, Anápolis - GO</th>
             </tr>
         </table>
+        <h1>Cadastro de Clientes</h1>
+        <p>Preencha o formulário abaixo para cadastrar um novo cliente.</p>
         <form method="post">
             <fieldset>
                 <legend>Dados do Cliente</legend>
@@ -41,6 +43,8 @@
                 </label>
             </fieldset>
         </form>
+        <h2>Clientes Cadastrados</h2>
+        <p>Pesquise na barra abaixo para encontrar um cliente específico.</p>
         <form method="GET" action="dadoscliente.php">
             <label>Pesquisar:</label>
             <input type="text" name="busca" placeholder="Nome ou CPF...">
@@ -51,33 +55,42 @@
             <?php endif; ?>
         </form><br>
         <table>
+            <thead>
             <tr>
-                <th>Nome   </th>
-                <th>CPF   </th>
-                <th>Endereço   </th>
-                <th>Número da Conta   </th>
-                <th>Número da Agência   </th>
-                <th>Opções  </th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Endereço</th>
+                <th>Número da Conta</th>
+                <th>Número da Agência</th>
+                <th>Opções</th>
             </tr>
-            <tr>
+            </thead>
+            <tbody>
+            <?php if (!empty($lista_dados)) : ?>
             <?php foreach ($lista_dados as $dado) : ?>
                 <tr>
-                    <td><?php echo $dado['nome']; ?></td>
-                    <td><?php echo $dado['cpf']; ?></td>
-                    <td><?php echo $dado['endereco']; ?></td>
-                    <td><?php echo $dado['numeroconta']; ?></td>
-                    <td><?php echo $dado['numeroagencia']; ?></td>
-                    <td>
-                        <form action="remover.php" method="POST">
-                            <input type="hidden" name="id" value="<?php echo $dado['id']; ?>">  
-                            <button type="submit">Remover</button>
-                        </form>
-                        <a href="operacoes.php?id=<?php echo $dado['id'];?>"> 
-                            <button type="button">Acessar Conta 💰</button>
-                    </td>
+                <td><?php echo htmlspecialchars($dado['nome']); ?></td>
+                <td><?php echo htmlspecialchars($dado['cpf']); ?></td>
+                <td><?php echo htmlspecialchars($dado['endereco']); ?></td>
+                <td><?php echo htmlspecialchars($dado['numeroconta']); ?></td>
+                <td><?php echo htmlspecialchars($dado['numeroagencia']); ?></td>
+                <td>
+                    <form action="remover.php" method="POST" style="display:inline;">
+                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($dado['id']); ?>">
+                    <button type="submit">Remover</button>
+                    </form>
+                    <a href="operacoes.php?id=<?php echo urlencode($dado['id']); ?>">
+                    <button type="button">Acessar Conta 💰</button>
+                    </a>
+                </td>
                 </tr>
             <?php endforeach; ?>
+            <?php else: ?>
+            <tr>
+                <td colspan="6">Nenhum registro encontrado.</td>
             </tr>
+            <?php endif; ?>
+            </tbody>
         </table>
     </body>
 </html>
